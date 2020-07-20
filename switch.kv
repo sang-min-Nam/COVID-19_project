@@ -1,0 +1,442 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<SBt@Button>
+    background_color: (0,0,0,0)
+    background_normal:''
+    back_color:(0.9,0.5,0.8,1)
+    border_radius:[18]
+    canvas.before:
+        Color:
+            rgba:self.back_color
+        RoundedRectangle:
+            size:self.size
+            pos:self.pos
+            radius:self.border_radius
+
+<StrokeBt@Button>
+    background_color: (0,0,0,0)
+    background_normal:''
+    back_color:(1,0,1,1)
+    border_radius:18
+    color:self.back_color
+    bold:True
+    canvas.before:
+        Color:
+            rgba:self.back_color
+        Line:
+            rounded_rectangle:(self.pos[0],self.pos[1],self.size[0],self.size[1],self.border_radius) 
+            width:1.2
+
+<SignupBt@Button>
+    
+    background_color: (0,0,0,0)
+    background_normal:''
+    back_color:(1,1,1,1)
+    border_radius:18
+    color:self.back_color
+    bold:True
+    canvas.before:
+        Color:
+            rgba: 0,0,0,1
+        Line:
+            rounded_rectangle:(self.pos[0],self.pos[1],self.size[0],self.size[1],self.border_radius) 
+            width:1.2
+<SBt2@Button>
+    background_color: (0,0,0,0)
+    background_normal:''
+    back_color:(1,1,1,1)
+    border_radius:[10]
+    source_img:'kivy/graph.png'
+    canvas.before:
+        Color:
+            rgba:self.back_color
+        RoundedRectangle:
+            size:self.size
+            pos:self.pos
+            # radius:self.border_radius
+            source:self.source_img
+
+
+<Manager>:
+    transition: FadeTransition()
+
+    FirstScreen:
+        id:screen_1
+        name: 'first'
+    SignupScreen:
+        id:screen_1_1
+        name: 'signup'
+    SecondScreen:
+        id:screen_2
+        name:'second'
+    ThirdScreen:
+        id:screen_3
+        name:'third'
+    DrawingScreen:
+        id:screen_2_1
+        name:'second_drawing'
+    GraphScreen:
+        id:screen_2_2
+        name:'second_graph'
+    
+    InputScreen:
+        id:screen_2_3
+        name: 'second_input'
+    VideoScreen:
+        id:screen_2_4
+        name: 'second_video'
+
+
+
+
+<FirstScreen>:
+    FloatLayout:
+        canvas:
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                source:'aa.jpg'
+    FloatLayout:
+        size_hint:1,1
+        Label:
+            id: info
+            text: ''
+            markup: True
+            size_hint_y: 1.05
+            font_size: 20
+            height: 100
+        TextInput:
+            id: username    
+            multiline:False
+            font_size: 15
+            size_hint:0.65, 0.05
+            pos_hint:{'center_x':0.5,'center_y':0.59}
+            hint_text:'ID'
+            font_size: 18
+            multiline: False
+            focus: True
+            on_text_validate: password.focus = True
+        TextInput:
+            id: password
+            multiline:False
+            password:True
+            font_size: 15
+            hint_text:'PASSWORD'
+            size_hint:0.65, 0.05
+            pos_hint:{'center_x':0.5,'center_y':0.45}
+            font_size: 18
+            multiline: False
+            focus: True
+            on_text_validate: root.firstscreen()
+        SBt:
+            text:'Login'
+            size_hint:0.3,0.06
+            pos_hint:{'center_x':0.337,'center_y':0.35}
+            back_color:(0.156,0.455,0.753,1.0)
+            on_press:root.do_login(username.text, password.text)
+        StrokeBt:
+            text:'Cancel'
+            size_hint:0.3,0.06
+            pos_hint:{'center_x':0.657,'center_y':0.35}
+            back_color:(1,0.155,0.553,1.0)
+            on_press:root.bt()
+        SignupBt:
+            text:'Sign Up'
+            size_hint:0.3,0.06
+            pos_hint:{'center_x':0.5,'center_y':0.275}
+            back_color:(0.156,0.455,0.753,1.0)
+            on_press: root.do_signup()
+# ========================================================================
+<SignupScreen>   
+    FloatLayout:
+        canvas:
+            Rectangle:
+                pos:self.pos
+                size:self.size
+                source:'aa.jpg'
+    FloatLayout:
+        size_hint:1,1
+        Label:
+            id: info
+            text: ''
+            markup: True
+            size_hint_y: 1.05
+            font_size: 20
+            height: 100
+        BoxLayout:
+            id: login_layout
+            orientation: 'horizontal'
+            
+            Label:
+                font_size: 25
+                text: 'Parent'
+                color: 0,0,0,5
+                size_hint: (0.4, 0.35)
+                pos_hint:{'center_x':0.5,'center_y':0.85}
+            CheckBox:
+                group: 'a'
+                size_hint: (0.4, 0.35)
+                pos_hint:{'center_x':0.5,'center_y':0.85}
+                color: 0,0,0,1
+            Label:
+                font_size: 25
+                text: 'Children' 
+                color: 0,0,0,5
+                size_hint: (0.4, 0.35)
+                pos_hint:{'center_x':0.5,'center_y':0.85}
+            CheckBox:
+                group: 'a'
+                size_hint: (0.4, 0.35)
+                pos_hint:{'center_x':0.5,'center_y':0.85}
+                color: 0,0,0,1
+        TextInput:
+            id: name    
+            multiline:False
+            font_size: 15
+            size_hint:0.65, 0.05
+            pos_hint:{'center_x':0.5,'center_y':0.75}
+            hint_text:'Name'
+            font_size: 18    
+        TextInput:
+            id: username    
+            multiline:False
+            font_size: 15
+            size_hint:0.65, 0.05
+            pos_hint:{'center_x':0.5,'center_y':0.65}
+            hint_text:'ID'
+            font_size: 18
+            multiline: False
+            focus: True
+            on_text_validate: password.focus = True
+        TextInput:
+            id: password
+            multiline:False
+            password:True
+            font_size: 15
+            hint_text:'PASSWORD'
+            size_hint:0.65, 0.05
+            pos_hint:{'center_x':0.5,'center_y':0.55}
+            font_size: 18
+            multiline: False
+            focus: True
+            on_text_validate: root.firstscreen()
+        TextInput:
+            id: password1
+            multiline:False
+            password:True
+            font_size: 15
+            hint_text:'PASSWORD1'
+            size_hint:0.65, 0.05
+            pos_hint:{'center_x':0.5,'center_y':0.45}
+            font_size: 18
+            multiline: False
+            focus: True
+            on_text_validate: root.firstscreen()
+        SBt:
+            text:'Signup'
+            size_hint:0.3,0.06
+            pos_hint:{'center_x':0.337,'center_y':0.25}
+            back_color:(0.156,0.455,0.753,1.0)
+            on_press:root.manager.current = 'first' 
+        StrokeBt:
+            text:'Cancel'
+            size_hint:0.3,0.06
+            pos_hint:{'center_x':0.657,'center_y':0.25}
+            back_color:(1,0.155,0.553,1.0)
+            on_press:root.bt()
+        
+# ========================================================================
+<SecondScreen>:
+    GridLayout:
+        rows: 5
+        orientation:"vertical"
+        padding: 10
+        ActionBar:
+            back_color:(0.6,0.6,0.6,0.9)
+            pos_hint: {'top': 1}
+            
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: "Second"
+                    with_previous: False
+                ActionButton:
+                    text: "Logout"
+                    on_press:
+                        root.manager.current = 'first' 
+                        root.manager.get_screen('first').resetForm()      
+      
+        BoxLayout:    
+            SBt2:
+                # bold:True
+                # text:'   Drawing'
+                # font_size: 30
+                # text_size: self.size  
+                # halign: 'left'
+                # valign: 'middle'
+                size_hint:1,1
+                source_img:'drawing1.PNG'
+                # back_color:(0.8,0.7,0.7,1)
+                on_press:root.manager.current = 'second_drawing' 
+        BoxLayout:    
+            SBt2:
+                # bold:True
+                # text:'   Graph'
+                # font_size: 30
+                # text_size: self.size   
+                # halign: 'left'
+                # valign: 'middle'
+                size_hint:1,1
+                source_img:'graph1.PNG'
+                # back_color:(0.6,0.6,0.6,0.9)
+                on_press:root.manager.current = 'second_graph'            
+
+        BoxLayout:    
+            SBt2:
+                # text:'   Input'
+                # font_size: 30
+                # halign: 'left'
+                # valign: 'middle'
+                text_size: self.size  
+                size_hint:1,1
+                source_img:'input1.PNG'
+                # back_color:(0.6,0.6,0.6,0.9)
+                on_press:root.manager.current = 'second_input' 
+        BoxLayout:    
+            SBt2:
+                # bold:True
+                # text:'   Video'
+                # font_size: 30
+                # halign: 'left'
+                # valign: 'middle'
+                text_size: self.size  
+                size_hint:1,1
+                source_img:'picture1.PNG'
+                # back_color:(0.8,0.7,0.7,1)
+                on_press:root.manager.current = 'second_video' 
+  
+# ========================================================================  
+<DrawingScreen>:
+    GridLayout: 
+        orientation: "vertical"
+        rows:3
+        ActionBar:
+            pos_hint: {'top': 1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: "Drwaing"
+                    with_previous: False
+                ActionOverflow:
+                    ActionButton:
+                        text: "Date"    
+                ActionButton:
+                    text: "Back"
+                    on_press:root.manager.current = 'second' 
+        Button:
+            text:'Drawing'
+            size_hint:0.8,1
+            
+        Label:
+            bold: True
+            size_hint:0.2,1
+            text:'AAAAAAAA'
+    
+<GraphScreen>:
+    GridLayout: 
+        orientation: "vertical"
+        rows:2
+        ActionBar:
+            pos_hint: {'top': 1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: "Graph"
+                    with_previous: False
+                ActionOverflow:
+                    ActionButton:
+                        text: "Date"    
+                ActionButton:
+                    text: "Back"
+                    on_press:root.manager.current = 'second' 
+        MyBox:        
+<InputScreen>:
+    GridLayout: 
+        orientation: "vertical"
+        rows:3
+        ActionBar:
+            pos_hint: {'top': 1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: "Input"
+                    with_previous: False
+                ActionOverflow:
+                    ActionButton:
+                        text: "Date"    
+                ActionButton:
+                    text: "Back"
+                    on_press:root.manager.current = 'second' 
+        Button:
+            text:'Input'
+            size_hint:0.8,1
+            
+        Label:
+            size_hint:0.2,1
+            text:'>>'
+<VideoScreen>:   
+    GridLayout: 
+        orientation: "vertical"
+        rows:3
+        ActionBar:
+            pos_hint: {'top': 1}
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title: "Input"
+                    with_previous: False
+                ActionOverflow:
+                    ActionButton:
+                        text: "Date"    
+                ActionButton:
+                    text: "Back"
+                    on_press:root.manager.current = 'second' 
+                        
+        Vid:
+            source:self.path
+            state:"play"
+            options: {'allow_stretch': True}
+        Rv:
+            pos_hint:{'x':0,'y':0.1}
+            id:rv            
+            data:self.data
+            viewclass: 'SelectableLabel'
+            SelectableRecycleBoxLayout:                
+                default_size: None, dp(56)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+                multiselect: False
+                touch_multiselect: True
+    
+<SelectableLabel>:
+    # Draw a background to indicate selection
+    canvas.before:
+        Color:
+            rgba: (.7, .0, .2, .2) if self.selected else (0, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    canvas.before:
+        Color:
+            rgba: (.7, .0, .2, .2) if self.selected else (0, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size  
+
+        
+        
+        
+
+ 
